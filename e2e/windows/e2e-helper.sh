@@ -85,6 +85,15 @@ upload_linux_file_to_storage_account() {
 }
 
 download_linux_file_from_storage_account() {
+    if check_linux_file_in_storage_account; then
+        ${array[0]}/azcopy copy $linuxFileURL file.zip
+        unzip file.zip
+    else
+        exit 1
+    fi
+}
+
+check_linux_file_exists_in_storage_account() {
     wget https://aka.ms/downloadazcopy-v10-linux
     tar -xvf downloadazcopy-v10-linux
 
@@ -109,12 +118,10 @@ download_linux_file_from_storage_account() {
 
     if [ "$fileExist" == "false" ]; then
         err "File does not exist in storage account."
-        exit 1
+        return 1
     fi
-
-    ${array[0]}/azcopy copy $linuxFileURL file.zip
-
-    unzip file.zip
+    
+    return 0
 }
 
 addJsonToFile() {
