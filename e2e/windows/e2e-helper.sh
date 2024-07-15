@@ -85,7 +85,7 @@ upload_linux_file_to_storage_account() {
 }
 
 download_linux_file_from_storage_account() {
-    if check_linux_file_in_storage_account; then
+    if check_linux_file_exists_in_storage_account; then
         ${array[0]}/azcopy copy $linuxFileURL file.zip
         unzip file.zip
     else
