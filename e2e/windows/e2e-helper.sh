@@ -81,11 +81,13 @@ upload_linux_file_to_storage_account() {
         log "Upload linux file successfully"
     else
         err "Failed to upload linux file. Error code is $retval."
+        exit 1
     fi
 }
 
 download_linux_file_from_storage_account() {
     if [[ "$(check_linux_file_exists_in_storage_account)" == *"Linux file already exists in storage account."* ]]; then
+        array=(azcopy_*)
         ${array[0]}/azcopy copy $linuxFileURL file.zip
         unzip file.zip
     else
@@ -118,6 +120,7 @@ check_linux_file_exists_in_storage_account() {
 
     if [ "$fileExist" == "false" ]; then
         err "Linux file does not exist in storage account."
+        return
     fi
 
     log "Linux file already exists in storage account."
