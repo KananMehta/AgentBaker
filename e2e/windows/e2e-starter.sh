@@ -114,8 +114,7 @@ if [ "$create_cluster" == "true" ]; then
         cleanupOutdatedFiles
     fi
 else
-    check_linux_file_exists_in_storage_account
-    if $? -eq 1; then 
+    if $(check_linux_file_exists_in_storage_account) -eq "1"; then 
         upload_linux_file_to_storage_account
     fi
 fi
