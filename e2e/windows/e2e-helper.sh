@@ -160,7 +160,7 @@ cleanupOutdatedFiles() {
     dateOfdeadline=$(date -d @${deadline} +"%Y-%m-%dT%H:%M:%S+00:00")
 
     # two containers need to be cleaned up now
-    CONTAINER_LIST=("cselogs" "csepackages")
+    CONTAINER_LIST=("cselogs" "\$web")
 
     for CONTAINER_NAME in "${CONTAINER_LIST[@]}"
     do 
