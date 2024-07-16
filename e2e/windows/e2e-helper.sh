@@ -88,6 +88,7 @@ upload_linux_file_to_storage_account() {
 download_linux_file_from_storage_account() {
     if [[ "$(check_linux_file_exists_in_storage_account)" == *"Linux file already exists in storage account."* ]]; then
         array=(azcopy_*)
+        linuxFileURL="https://${AZURE_E2E_STORAGE_ACCOUNT_NAME}.blob.core.windows.net/${WINDOWS_E2E_STORAGE_CONTAINER}/${MC_VMSS_NAME}-linux-file.zip"
         ${array[0]}/azcopy copy $linuxFileURL file.zip
         unzip file.zip
     else
