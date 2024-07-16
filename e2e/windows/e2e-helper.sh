@@ -119,8 +119,10 @@ check_linux_file_exists_in_storage_account() {
 
     if [ "$fileExist" == "false" ]; then
         err "File does not exist in storage account."
-        exit 1
+        return 1
     fi
+
+    return 0
 }
 
 addJsonToFile() {
