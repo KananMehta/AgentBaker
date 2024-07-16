@@ -85,7 +85,7 @@ upload_linux_file_to_storage_account() {
 }
 
 download_linux_file_from_storage_account() {
-    if [[ $(check_linux_file_exists_in_storage_account) -eq "0" ]]; then
+    if [[ "$(check_linux_file_exists_in_storage_account)" == *"Linux file already exists in storage account."* ]]; then
         ${array[0]}/azcopy copy $linuxFileURL file.zip
         unzip file.zip
     else
@@ -117,11 +117,10 @@ check_linux_file_exists_in_storage_account() {
     done
 
     if [ "$fileExist" == "false" ]; then
-        err "File does not exist in storage account."
-        echo "1"
+        err "Linux file does not exist in storage account."
     fi
 
-    echo "0"
+    log "Linux file already exists in storage account."
 }
 
 addJsonToFile() {
